@@ -12,7 +12,8 @@ class AnimatedWeatherBackground extends StatefulWidget {
   });
 
   @override
-  State<AnimatedWeatherBackground> createState() => _AnimatedWeatherBackgroundState();
+  State<AnimatedWeatherBackground> createState() =>
+      _AnimatedWeatherBackgroundState();
 }
 
 class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
@@ -27,9 +28,10 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
       duration: const Duration(seconds: 4),
       vsync: this,
     )..repeat(reverse: true);
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -41,27 +43,22 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
   String _getTimeOfDay() {
     final hour = DateTime.now().hour;
     if (hour >= 6 && hour < 12) return 'morning';
-    if (hour >= 12 && hour < 15) return 'afternoon';
-    if (hour >= 15 && hour < 19) return 'evening';
+    if (hour >= 12 && hour < 17) return 'afternoon';
+    if (hour >= 17 && hour < 21) return 'evening';
     return 'night';
   }
 
   @override
   Widget build(BuildContext context) {
     final timeOfDay = _getTimeOfDay();
-    
+
     return AnimatedBuilder(
       animation: _animation,
       builder: (context, child) {
         return Container(
-          decoration: BoxDecoration(
-            gradient: _getGradientForTime(timeOfDay),
-          ),
+          decoration: BoxDecoration(gradient: _getGradientForTime(timeOfDay)),
           child: Stack(
-            children: [
-              _buildTimeBasedElements(timeOfDay),
-              widget.child,
-            ],
+            children: [_buildTimeBasedElements(timeOfDay), widget.child],
           ),
         );
       },
@@ -86,13 +83,19 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
         return const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF1E3C72), Color(0xFFFF6B35)], // Blue and sunset orange
+          colors: [
+            Color(0xFF1E3C72),
+            Color(0xFFFF6B35),
+          ], // Blue and sunset orange
         );
       case 'night':
         return const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFFFFFFFF), Color(0xFF2F2F2F)], // White and dark
+          colors: [
+            Color.fromARGB(255, 73, 72, 72),
+            Color.fromARGB(255, 63, 59, 59),
+          ], // White and dark
         );
       default:
         return const LinearGradient(
@@ -199,9 +202,7 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
             child: Container(
               width: 100,
               height: 100,
-              child: CustomPaint(
-                painter: SunRaysPainter(),
-              ),
+              child: CustomPaint(painter: SunRaysPainter()),
             ),
           ),
         ),
@@ -329,20 +330,32 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           top: 110 + (_animation.value * 8),
           left: 40 + (_animation.value * 12),
           child: Image.asset(
-            'assets/images/night.jpg',
-            width: 75,
+            'assets/images/Choud2.png',
+            width: 150,
             height: 38,
-            color: Colors.indigo.withOpacity(0.4),
+            color: Colors.white.withOpacity(0.4),
+          ),
+        ),
+        Positioned(
+          top: 90 + (_animation.value * 6),
+          right: 75 + (_animation.value * 15),
+          child: Image.asset(
+            'assets/images/Choud2.png',
+            fit: BoxFit.cover,
+            width: 80,
+            height: 28,
+            color: Colors.white.withOpacity(0.4),
           ),
         ),
         Positioned(
           top: 150 + (_animation.value * 6),
-          right: 90 + (_animation.value * 15),
+          right: 120 + (_animation.value * 15),
           child: Image.asset(
-            'assets/images/night.jpg',
-            width: 55,
+            'assets/images/Choud2.png',
+            fit: BoxFit.cover,
+            width: 80,
             height: 28,
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withOpacity(0.4),
           ),
         ),
         // Twinkling stars

@@ -33,7 +33,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedWeatherBackground(
-        weatherCondition: 'time-based', 
+        weatherCondition: 'time-based',
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
@@ -55,56 +55,73 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
   }
 
   Widget _buildCurrentWeather() {
-    return GlassCard(
-      child: Column(
-        children: [
-          Text(
-            currentWeather.city,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          Text(
-            DateFormat('EEEE, MMM d').format(DateTime.now()),
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white.withOpacity(0.8),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                currentWeather.icon,
-                style: const TextStyle(fontSize: 60),
+    return Container(
+      height: 450,
+      child: GlassCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              "Current Weather",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
               ),
-              const SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${currentWeather.temperature.round()}°',
-                    style: const TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    currentWeather.description,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white.withOpacity(0.8),
-                    ),
-                  ),
-                ],
+            ),
+            SizedBox(height: 20),
+            Text(
+              currentWeather.city,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(height: 5),
+            Text(
+              DateFormat('EEEE, MMM d').format(DateTime.now()),
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white.withOpacity(0.8),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${currentWeather.temperature.round()}°',
+                      style: const TextStyle(
+                        fontSize: 130,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  currentWeather.description,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Text(currentWeather.icon, style: const TextStyle(fontSize: 50)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -118,12 +135,36 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
       crossAxisSpacing: 12,
       childAspectRatio: 1.5,
       children: [
-        _buildDetailCard('UV Index', '${currentWeather.uvIndex}', Icons.wb_sunny),
-        _buildDetailCard('Humidity', '${currentWeather.humidity}%', Icons.water_drop),
-        _buildDetailCard('Real Feel', '${currentWeather.realFeel.round()}°', Icons.thermostat),
-        _buildDetailCard('Wind', '${currentWeather.windSpeed} km/h ${currentWeather.windDirection}', Icons.air),
-        _buildDetailCard('Sunrise', DateFormat('HH:mm').format(currentWeather.sunrise), Icons.wb_twilight),
-        _buildDetailCard('Pressure', '${currentWeather.pressure} hPa', Icons.speed),
+        _buildDetailCard(
+          'UV Index',
+          '${currentWeather.uvIndex}',
+          Icons.wb_sunny,
+        ),
+        _buildDetailCard(
+          'Humidity',
+          '${currentWeather.humidity}%',
+          Icons.water_drop,
+        ),
+        _buildDetailCard(
+          'Real Feel',
+          '${currentWeather.realFeel.round()}°',
+          Icons.thermostat,
+        ),
+        _buildDetailCard(
+          'Wind',
+          '${currentWeather.windSpeed} km/h ${currentWeather.windDirection}',
+          Icons.air,
+        ),
+        _buildDetailCard(
+          'Sunrise',
+          DateFormat('HH:mm').format(currentWeather.sunrise),
+          Icons.wb_twilight,
+        ),
+        _buildDetailCard(
+          'Pressure',
+          '${currentWeather.pressure} hPa',
+          Icons.speed,
+        ),
       ],
     );
   }
@@ -195,10 +236,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        forecast.icon,
-                        style: const TextStyle(fontSize: 24),
-                      ),
+                      Text(forecast.icon, style: const TextStyle(fontSize: 24)),
                       const SizedBox(height: 8),
                       Text(
                         '${forecast.temperature.round()}°',
@@ -249,7 +287,9 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        index == 0 ? 'Today' : DateFormat('EEE').format(forecast.date),
+                        index == 0
+                            ? 'Today'
+                            : DateFormat('EEE').format(forecast.date),
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
