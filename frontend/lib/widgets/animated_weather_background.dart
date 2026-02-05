@@ -44,7 +44,7 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
     final hour = DateTime.now().hour;
     if (hour >= 6 && hour < 8) return 'morning';
     if (hour >= 8 && hour < 16) return 'afternoon';
-    if (hour >= 17 && hour < 21) return 'evening';
+    if (hour >= 16 && hour < 18) return 'evening';
     return 'night';
   }
 
