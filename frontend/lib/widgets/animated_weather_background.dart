@@ -42,8 +42,8 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
 
   String _getTimeOfDay() {
     final hour = DateTime.now().hour;
-    if (hour >= 6 && hour < 12) return 'morning';
-    if (hour >= 12 && hour < 17) return 'afternoon';
+    if (hour >= 6 && hour < 8) return 'morning';
+    if (hour >= 8 && hour < 16) return 'afternoon';
     if (hour >= 17 && hour < 21) return 'evening';
     return 'night';
   }
@@ -129,9 +129,9 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           top: 80 + (_animation.value * 15),
           left: 30 + (_animation.value * 20),
           child: Image.asset(
-            'assets/images/morning,afternoon.png',
-            width: 80,
-            height: 40,
+            'assets/images/Choud2.png',
+            width: 120,
+            height: 80,
             color: Colors.white.withOpacity(0.7),
           ),
         ),
@@ -139,9 +139,9 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           top: 120 + (_animation.value * 10),
           right: 60 + (_animation.value * 25),
           child: Image.asset(
-            'assets/images/morning,afternoon.png',
-            width: 60,
-            height: 30,
+            'assets/images/Choud2.png',
+           width: 120,
+            height: 80,
             color: Colors.white.withOpacity(0.5),
           ),
         ),
@@ -167,42 +167,46 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
   Widget _buildAfternoonElements() {
     return Stack(
       children: [
-        // Moving sun to the right
+        // Enhanced sun design with better lighting
         Positioned(
-          top: 60,
-          right: 50 + (_animation.value * 100), // Moves from right to left
+          top: 40,
+          right: 30,
           child: Container(
-            width: 120,
-            height: 120,
+            width: 80,
+            height: 80,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: RadialGradient(
-                colors: [
-                  Colors.yellow,
-                  Colors.orange.withOpacity(0.8),
-                  Colors.orange.withOpacity(0.3),
-                ],
-              ),
+              color: const Color(0xFFFDB813),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.yellow.withOpacity(0.4),
-                  blurRadius: 25,
+                  color: const Color(0xFFFDB813).withOpacity(0.8),
+                  blurRadius: 40,
                   spreadRadius: 8,
+                ),
+                BoxShadow(
+                  color: Colors.yellow.withOpacity(0.6),
+                  blurRadius: 60,
+                  spreadRadius: 15,
+                ),
+                BoxShadow(
+                  color: Colors.orange.withOpacity(0.3),
+                  blurRadius: 80,
+                  spreadRadius: 25,
                 ),
               ],
             ),
           ),
         ),
-        // Sun rays
+        // Enhanced sun rays
         Positioned(
-          top: 60,
-          right: 50 + (_animation.value * 100),
+          top: 10,
+          right: 0,
           child: Transform.rotate(
-            angle: _animation.value * 0.5,
+            angle: _animation.value * 0.2,
             child: Container(
-              width: 100,
-              height: 100,
-              child: CustomPaint(painter: SunRaysPainter()),
+              width: 140,
+              height: 140,
+              child: CustomPaint(painter: BrightSunRaysPainter()),
             ),
           ),
         ),
@@ -211,9 +215,9 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           top: 100 + (_animation.value * 12),
           left: 40 + (_animation.value * 30),
           child: Image.asset(
-            'assets/images/morning,afternoon.png',
-            width: 90,
-            height: 45,
+            'assets/images/Choud2.png',
+            width: 120,
+            height: 80,
             color: Colors.white.withOpacity(0.8),
           ),
         ),
@@ -221,9 +225,9 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           top: 140 + (_animation.value * 8),
           right: 80 + (_animation.value * 20),
           child: Image.asset(
-            'assets/images/morning,afternoon.png',
-            width: 70,
-            height: 35,
+            'assets/images/Choud2.png',
+            width: 120,
+            height: 80,
             color: Colors.white.withOpacity(0.6),
           ),
         ),
@@ -267,9 +271,9 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           top: 90 + (_animation.value * 10),
           left: 50 + (_animation.value * 15),
           child: Image.asset(
-            'assets/images/evening.jpg',
-            width: 85,
-            height: 42,
+            'assets/images/Choud2.png',
+            width: 120,
+            height: 80,
             color: Colors.orange.withOpacity(0.4),
           ),
         ),
@@ -277,9 +281,9 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           top: 130 + (_animation.value * 12),
           right: 70 + (_animation.value * 18),
           child: Image.asset(
-            'assets/images/evening.jpg',
-            width: 65,
-            height: 32,
+            'assets/images/Choud2.png',
+            width: 120,
+            height: 80,
             color: Colors.pink.withOpacity(0.3),
           ),
         ),
@@ -342,8 +346,8 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           child: Image.asset(
             'assets/images/Choud2.png',
             fit: BoxFit.cover,
-            width: 80,
-            height: 28,
+            width: 120,
+            height: 80,
             color: Colors.white.withOpacity(0.4),
           ),
         ),
@@ -353,8 +357,8 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
           child: Image.asset(
             'assets/images/Choud2.png',
             fit: BoxFit.cover,
-            width: 80,
-            height: 28,
+           width: 120,
+            height: 80,
             color: Colors.grey.withOpacity(0.4),
           ),
         ),
@@ -380,6 +384,129 @@ class _AnimatedWeatherBackgroundState extends State<AnimatedWeatherBackground>
       ],
     );
   }
+}
+
+class BrightSunRaysPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 4;
+
+    // Draw bright main rays
+    final mainPaint = Paint()
+      ..color = const Color(0xFFFDB813).withOpacity(0.8)
+      ..strokeWidth = 3
+      ..strokeCap = StrokeCap.round;
+
+    for (int i = 0; i < 8; i++) {
+      final angle = (i * 45) * (3.14159 / 180);
+      final start = Offset(
+        center.dx + radius * cos(angle),
+        center.dy + radius * sin(angle),
+      );
+      final end = Offset(
+        center.dx + (radius + 25) * cos(angle),
+        center.dy + (radius + 25) * sin(angle),
+      );
+      canvas.drawLine(start, end, mainPaint);
+    }
+
+    // Draw secondary rays
+    final secondaryPaint = Paint()
+      ..color = Colors.yellow.withOpacity(0.6)
+      ..strokeWidth = 2
+      ..strokeCap = StrokeCap.round;
+
+    for (int i = 0; i < 8; i++) {
+      final angle = ((i * 45) + 22.5) * (3.14159 / 180);
+      final start = Offset(
+        center.dx + (radius + 5) * cos(angle),
+        center.dy + (radius + 5) * sin(angle),
+      );
+      final end = Offset(
+        center.dx + (radius + 18) * cos(angle),
+        center.dy + (radius + 18) * sin(angle),
+      );
+      canvas.drawLine(start, end, secondaryPaint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class SimpleSunRaysPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = const Color(0xFFFDB813).withOpacity(0.4)
+      ..strokeWidth = 1.5
+      ..strokeCap = StrokeCap.round;
+
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 4;
+
+    for (int i = 0; i < 8; i++) {
+      final angle = (i * 45) * (3.14159 / 180);
+      final start = Offset(
+        center.dx + radius * cos(angle),
+        center.dy + radius * sin(angle),
+      );
+      final end = Offset(
+        center.dx + (radius + 15) * cos(angle),
+        center.dy + (radius + 15) * sin(angle),
+      );
+      canvas.drawLine(start, end, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class ModernSunRaysPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..strokeCap = StrokeCap.round;
+
+    final center = Offset(size.width / 2, size.height / 2);
+    final baseRadius = size.width / 3.5;
+
+    // Draw multiple layers of rays
+    for (int layer = 0; layer < 2; layer++) {
+      final layerRadius = baseRadius + (layer * 8);
+      final rayCount = layer == 0 ? 12 : 8;
+      final angleStep = 360 / rayCount;
+      
+      for (int i = 0; i < rayCount; i++) {
+        final angle = (i * angleStep) * (3.14159 / 180);
+        final isLongRay = i % 2 == 0;
+        final rayLength = isLongRay ? 25.0 : 15.0;
+        final strokeWidth = layer == 0 ? (isLongRay ? 3.0 : 2.0) : 1.5;
+        
+        paint
+          ..color = layer == 0 
+              ? (isLongRay ? const Color(0xFFFFD54F) : const Color(0xFFFFF59D))
+              : Colors.orange.withOpacity(0.6)
+          ..strokeWidth = strokeWidth;
+
+        final start = Offset(
+          center.dx + layerRadius * cos(angle),
+          center.dy + layerRadius * sin(angle),
+        );
+        final end = Offset(
+          center.dx + (layerRadius + rayLength) * cos(angle),
+          center.dy + (layerRadius + rayLength) * sin(angle),
+        );
+        
+        canvas.drawLine(start, end, paint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 class SunRaysPainter extends CustomPainter {

@@ -194,7 +194,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          DateFormat('HH:mm:ss').format(_myanmarTime),
+                          DateFormat('hh:mm:ss a').format(_myanmarTime),
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
