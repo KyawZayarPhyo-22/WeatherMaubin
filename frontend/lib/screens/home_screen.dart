@@ -3,6 +3,7 @@ import 'package:frontend/screens/weather_news_screens.dart';
 import 'weather_forecast_screen.dart';
 import 'map_forecast_screen.dart';
 import 'chat_screen.dart';
+import 'water_level_forecast_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -53,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Forecast',
           ),
           NavigationDestination(
-            icon: Icon(Icons.map_outlined),
-            selectedIcon: Icon(Icons.map),
-            label: 'Map',
+            icon: Icon(Icons.water_outlined),
+            selectedIcon: Icon(Icons.water),
+            label: 'Water Level',
           ),
           NavigationDestination(
             icon: Icon(Icons.article_outlined),

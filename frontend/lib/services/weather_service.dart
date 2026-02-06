@@ -7,8 +7,8 @@ class WeatherService {
     return WeatherData(
       city: 'Maubin',
       temperature: 24.0,
-      condition: 'sunny',
-      description: 'Sunny',
+      condition: 'clear',
+      description: 'Clear sky',
       humidity: 65,
       windSpeed: 12.5,
       windDirection: 'NE',
@@ -23,7 +23,7 @@ class WeatherService {
 
   static List<HourlyForecast> getHourlyForecast() {
     return List.generate(24, (index) {
-      final conditions = ['sunny', 'cloudy', 'rainy', 'stormy'];
+      final conditions = ['clear', 'cloudy', 'rainy', 'stormy'];
       final icons = ['☀️', '☁️', '🌧️', '⛈️'];
       final condition = conditions[index % 4];
       
@@ -38,7 +38,7 @@ class WeatherService {
 
   static List<DailyForecast> getDailyForecast() {
     return List.generate(7, (index) {
-      final conditions = ['sunny', 'cloudy', 'rainy', 'stormy'];
+      final conditions = ['clear', 'cloudy', 'rainy', 'stormy'];
       final icons = ['☀️', '☁️', '🌧️', '⛈️'];
       final condition = conditions[index % 4];
       
@@ -97,24 +97,5 @@ class WeatherService {
     _newsList.removeWhere((news) => news.id == id);
   }
 
-  static List<FAQ> getFAQs() {
-    return [
-      FAQ(
-        question: 'What is UV Index?',
-        answer: 'The UV Index is a measure of the strength of ultraviolet radiation from the sun. It ranges from 0-11+, with higher values indicating greater risk of harm from unprotected sun exposure.',
-      ),
-      FAQ(
-        question: 'What does "Real Feel" mean?',
-        answer: 'Real Feel (or "Feels Like") temperature combines air temperature with other factors like humidity and wind speed to represent how the weather actually feels to your body.',
-      ),
-      FAQ(
-        question: 'How accurate is the forecast?',
-        answer: 'Weather forecasts are generally accurate for 3-5 days ahead. Accuracy decreases beyond that timeframe. Current conditions and next-day forecasts are typically 90%+ accurate.',
-      ),
-      FAQ(
-        question: 'What causes different weather conditions?',
-        answer: 'Weather is caused by the movement of air masses, temperature differences, humidity levels, and atmospheric pressure changes. These factors interact to create various weather patterns.',
-      ),
-    ];
-  }
+  
 }
