@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/add_weather_posts.dart';
 import 'screens/home_screen.dart';
 import 'screens/admin_login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+
+void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const WeatherApp());
 }
 
@@ -50,6 +55,8 @@ class _WeatherAppState extends State<WeatherApp> {
       routes: {
         '/': (context) => const HomeScreen(),
         '/admin': (context) => const AdminLoginScreen(),
+        '/add_weather_post': (context) => const WeatherPosts(),
+
       },
     );
   }

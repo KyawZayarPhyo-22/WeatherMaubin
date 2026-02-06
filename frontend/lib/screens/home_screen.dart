@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/weather_news_screens.dart';
 import 'weather_forecast_screen.dart';
 import 'weather_news_screen.dart';
 import 'chat_screen.dart';
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const WeatherForecastScreen(),
     const WaterLevelForecastScreen(),
     const WeatherNewsScreen(),
+    const WeatherNewsScreens(),
     const ChatScreen(),
   ];
 
