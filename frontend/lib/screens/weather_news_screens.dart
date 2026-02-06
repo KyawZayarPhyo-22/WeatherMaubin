@@ -1,18 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/update_weather_post.dart';
 import 'package:frontend/services/weatherPosts_service.dart';
 import 'package:intl/intl.dart';
 import '../widgets/glass_card.dart';
 
-class WeatherNewsScreen extends StatefulWidget {
-  const WeatherNewsScreen({super.key});
+class WeatherNewsScreens extends StatefulWidget {
+  const WeatherNewsScreens({super.key});
 
   @override
-  State<WeatherNewsScreen> createState() => _WeatherNewsScreenState();
+  State<WeatherNewsScreens> createState() => _WeatherNewsScreensState();
 }
 
-class _WeatherNewsScreenState extends State<WeatherNewsScreen> {
+class _WeatherNewsScreensState extends State<WeatherNewsScreens> {
   // late List<NewsItem> newsItems;
 
   AddWeatherPosts weatherPostsService = AddWeatherPosts();
@@ -253,26 +252,26 @@ class _WeatherNewsScreenState extends State<WeatherNewsScreen> {
                                 color: Colors.white.withOpacity(0.6),
                               ),
                             ), 
-                          Row(
+                        //   Row(
                        
                           
-                          children: [
-                            IconButton(onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> updatePost(
-                                postId: doc.id,
-                                postData: post!,
-                              )));
-                            }, icon: Icon(Icons.edit,size: 20,color: Colors.white))  ,
-                            IconButton(onPressed: (){
-                             weatherPostsService.deletePost(doc.id);
-                              Navigator.pop(context);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Post deleted successfully')),
-                              );
+                        //   children: [
+                        //     IconButton(onPressed: (){
+                        //       Navigator.push(context, MaterialPageRoute(builder: (context)=> updatePost(
+                        //         postId: doc.id,
+                        //         postData: post!,
+                        //       )));
+                        //     }, icon: Icon(Icons.edit,size: 20,color: Colors.white))  ,
+                        //     IconButton(onPressed: (){
+                        //      weatherPostsService.deletePost(doc.id);
+                        //       Navigator.pop(context);
+                        //       ScaffoldMessenger.of(context).showSnackBar(
+                        //         const SnackBar(content: Text('Post deleted successfully')),
+                        //       );
                               
-                            }, icon: Icon(Icons.delete_outline,size: 20,color: Colors.white))                            
-                          ],
-                        ),
+                        //     }, icon: Icon(Icons.delete_outline,size: 20,color: Colors.white))                            
+                        //   ],
+                        // ),
                           ],
                         ),
                        

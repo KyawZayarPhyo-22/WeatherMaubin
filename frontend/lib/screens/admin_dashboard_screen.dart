@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:frontend/screens/add_weather_posts.dart';
+import 'package:frontend/screens/weather_news_screen.dart';
 import '../models/admin_models.dart';
 import '../services/admin_service.dart';
 import '../main.dart';
@@ -34,10 +36,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF0D47A1) : Theme.of(context).colorScheme.surface,
+      backgroundColor: isDark
+          ? const Color(0xFF0D47A1)
+          : Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text('Weather Admin Panel'),
-        backgroundColor: isDark ? const Color(0xFF1565C0) : Theme.of(context).colorScheme.primary,
+        backgroundColor: isDark
+            ? const Color(0xFF1565C0)
+            : Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
         actions: [
           IconButton(
@@ -57,9 +63,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             icon: const Icon(Icons.refresh),
             onPressed: () {
               setState(() => _loadData());
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Data refreshed')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Data refreshed')));
             },
           ),
         ],
@@ -71,12 +77,42 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
   Widget _buildMaterialDrawer() {
     final menuItems = [
-      {'icon': Icons.dashboard_outlined, 'selectedIcon': Icons.dashboard, 'label': 'Dashboard'},
-      {'icon': Icons.location_city_outlined, 'selectedIcon': Icons.location_city, 'label': 'City Info'},
-      {'icon': Icons.cloud_outlined, 'selectedIcon': Icons.cloud, 'label': 'Weather Control'},
-      {'icon': Icons.warning_outlined, 'selectedIcon': Icons.warning, 'label': 'Alerts'},
-      {'icon': Icons.article_outlined, 'selectedIcon': Icons.article, 'label': 'News Management'},
-      {'icon': Icons.settings_outlined, 'selectedIcon': Icons.settings, 'label': 'Settings'},
+      {
+        'icon': Icons.dashboard_outlined,
+        'selectedIcon': Icons.dashboard,
+        'label': 'Dashboard',
+      },
+      {
+        'icon': Icons.location_city_outlined,
+        'selectedIcon': Icons.location_city,
+        'label': 'City Info',
+      },
+      {
+        'icon': Icons.cloud_outlined,
+        'selectedIcon': Icons.cloud,
+        'label': 'Weather Control',
+      },
+      {
+        'icon': Icons.warning_outlined,
+        'selectedIcon': Icons.warning,
+        'label': 'Alerts',
+      },
+      {
+        'icon': Icons.article_outlined,
+        'selectedIcon': Icons.article,
+        'label': 'News Management',
+      },
+      {
+        'icon': Icons.post_add_outlined,
+        'selectedIcon': Icons.post_add,
+        'label': 'Add News',
+      },
+      
+      {
+        'icon': Icons.settings_outlined,
+        'selectedIcon': Icons.settings,
+        'label': 'Settings',
+      },
     ];
 
     return NavigationDrawer(
@@ -131,8 +167,15 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       case 3:
         return const AlertManagementScreen();
       case 4:
-        return const NewsManagementScreen();
+        // return const NewsManagementScreen();
+        // return const WeatherNewsScreen();
+        return const WeatherNewsScreen();
       case 5:
+        // return const NewsManagementScreen();
+        // return const WeatherNewsScreen();
+        return const WeatherPosts();
+
+      case 6:
         return const SettingsScreen();
       default:
         return _buildDashboard();
@@ -142,7 +185,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   Widget _buildDashboard() {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmallScreen = screenWidth < 600;
-    
+
     return SingleChildScrollView(
       padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
       child: Column(
@@ -156,7 +199,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             ),
           ),
           SizedBox(height: isSmallScreen ? 12 : 16),
-          
+
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -165,18 +208,42 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             crossAxisSpacing: isSmallScreen ? 8 : 12,
             childAspectRatio: isSmallScreen ? 1.2 : 1.5,
             children: [
-              _buildStatCard('Temperature', '${_stats.totalUsers}°C', Icons.thermostat, Colors.red, isSmallScreen),
-              _buildStatCard('Humidity', '${_stats.activeAlerts}%', Icons.water_drop, Colors.blue, isSmallScreen),
-              _buildStatCard('Wind Speed', '${_stats.apiStatus} km/h', Icons.air, Colors.green, isSmallScreen),
-              _buildStatCard('Pressure', '${_stats.subscriberCount} hPa', Icons.speed, Colors.purple, isSmallScreen),
+              _buildStatCard(
+                'Temperature',
+                '${_stats.totalUsers}°C',
+                Icons.thermostat,
+                Colors.red,
+                isSmallScreen,
+              ),
+              _buildStatCard(
+                'Humidity',
+                '${_stats.activeAlerts}%',
+                Icons.water_drop,
+                Colors.blue,
+                isSmallScreen,
+              ),
+              _buildStatCard(
+                'Wind Speed',
+                '${_stats.apiStatus} km/h',
+                Icons.air,
+                Colors.green,
+                isSmallScreen,
+              ),
+              _buildStatCard(
+                'Pressure',
+                '${_stats.subscriberCount} hPa',
+                Icons.speed,
+                Colors.purple,
+                isSmallScreen,
+              ),
             ],
           ),
-          
+
           SizedBox(height: isSmallScreen ? 16 : 24),
-          
-          if (isSmallScreen) 
-            ..._buildMobileCharts() 
-          else 
+
+          if (isSmallScreen)
+            ..._buildMobileCharts()
+          else
             ..._buildDesktopCharts(),
         ],
       ),
@@ -244,8 +311,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                         ),
                       ),
                     ),
-                    rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
                   ),
                   borderData: FlBorderData(show: true),
                   lineBarsData: [
@@ -315,18 +386,85 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                         ),
                       ),
                     ),
-                    rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
                   ),
                   borderData: FlBorderData(show: true),
                   barGroups: [
-                    BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: 2.1, color: Colors.teal, width: isSmallScreen ? 16 : 20)]),
-                    BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 2.3, color: Colors.teal, width: isSmallScreen ? 16 : 20)]),
-                    BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 2.8, color: Colors.teal, width: isSmallScreen ? 16 : 20)]),
-                    BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 3.2, color: Colors.teal, width: isSmallScreen ? 16 : 20)]),
-                    BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: 2.9, color: Colors.teal, width: isSmallScreen ? 16 : 20)]),
-                    BarChartGroupData(x: 5, barRods: [BarChartRodData(toY: 2.5, color: Colors.teal, width: isSmallScreen ? 16 : 20)]),
-                    BarChartGroupData(x: 6, barRods: [BarChartRodData(toY: 2.2, color: Colors.teal, width: isSmallScreen ? 16 : 20)]),
+                    BarChartGroupData(
+                      x: 0,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 2.1,
+                          color: Colors.teal,
+                          width: isSmallScreen ? 16 : 20,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 1,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 2.3,
+                          color: Colors.teal,
+                          width: isSmallScreen ? 16 : 20,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 2,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 2.8,
+                          color: Colors.teal,
+                          width: isSmallScreen ? 16 : 20,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 3,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 3.2,
+                          color: Colors.teal,
+                          width: isSmallScreen ? 16 : 20,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 4,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 2.9,
+                          color: Colors.teal,
+                          width: isSmallScreen ? 16 : 20,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 5,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 2.5,
+                          color: Colors.teal,
+                          width: isSmallScreen ? 16 : 20,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 6,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 2.2,
+                          color: Colors.teal,
+                          width: isSmallScreen ? 16 : 20,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -337,7 +475,13 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color, bool isSmallScreen) {
+  Widget _buildStatCard(
+    String title,
+    String value,
+    IconData icon,
+    Color color,
+    bool isSmallScreen,
+  ) {
     return Card(
       elevation: 2,
       child: Padding(
@@ -347,14 +491,22 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           children: [
             Icon(icon, size: isSmallScreen ? 24 : 32, color: color),
             SizedBox(height: isSmallScreen ? 8 : 12),
-            Text(value, style: TextStyle(fontSize: isSmallScreen ? 18 : 24, fontWeight: FontWeight.bold)),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: isSmallScreen ? 18 : 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(height: isSmallScreen ? 4 : 8),
-            Text(title, style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
     );
   }
-
-
 }

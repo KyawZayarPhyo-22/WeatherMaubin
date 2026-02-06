@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/weather_news_screens.dart';
 import 'weather_forecast_screen.dart';
-import 'weather_news_screen.dart';
+import 'map_forecast_screen.dart';
 import 'chat_screen.dart';
 import 'water_level_forecast_screen.dart';
 
@@ -16,8 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const WeatherForecastScreen(),
-    const WaterLevelForecastScreen(),
-    const WeatherNewsScreen(),
+    const MapForecastScreen(),
+    const WeatherNewsScreens(),
     const ChatScreen(),
   ];
 
